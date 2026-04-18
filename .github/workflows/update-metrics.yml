@@ -1,0 +1,42 @@
+name: 📊 Analytics Matrix Engine
+
+on:
+  schedule:
+    - cron: '0 */12 * * *' # Run every 12 hours
+  workflow_dispatch: # Allow manual trigger
+  push:
+    branches:
+      - main # Run whenever code pushes to main
+
+jobs:
+  update-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python Runtime
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Compute Dependencies
+        run: pip install requests
+
+      - name: Execute Matrix Calculations
+        env:
+          # GitHub Actions provides a token automatically, 
+          # which can read public repos via GraphQL
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python generate_dashboard.py
+
+      - name: Commit Datastream Output
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard/stats.json
+          # Only commit if there are changes
+          git diff --staged --quiet || (git commit -m "chore: sync telemetry datastream" && git push)

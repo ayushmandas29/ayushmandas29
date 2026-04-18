@@ -70,5 +70,12 @@
 <br/>
 
 <div align="center">
+  <h3><a href="https://ayushmandas29.github.io/ayushmandas29/dashboard/" target="_blank">🌐 View Native Telemetry Dashboard</a></h3>
+  <p>Self-hosted GraphQL Python metrics engine running natively via GitHub Actions.</p>
+</div>
+
+<br/>
+
+<div align="center">
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0048ff,100:00e1ff&height=100&section=footer" />
 </div>
