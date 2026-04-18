@@ -25,10 +25,12 @@
 ### 📊 Telemetry & Operations Board
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ayushmandas29&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&show_icons=true" height="195" />
-  <img src="https://streak-stats.demolab.com/?user=ayushmandas29&theme=tokyonight&hide_border=true" height="195" />
+  <img src="https://github-readme-stats.vercel.app/api?username=ayushmandas29&theme=tokyonight&hide_border=true&include_all_commits=true&show_icons=true" height="195" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=ayushmandas29&theme=tokyonight&hide_border=true" height="195" />
   <br/><br/>
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ayushmandas29&layout=compact&theme=tokyonight&hide_border=true" />
+  <br/><br/>
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=ayushmandas29&bg_color=1a1b26&color=00e1ff&line=0048ff&point=ffffff&area=true&hide_border=true&hide_title=true" width="100%" />
 </div>
 
 <br/>
