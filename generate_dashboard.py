@@ -65,7 +65,15 @@ def compute_metrics(data):
 
     collections = user_node['contributionsCollection']
     
-    total_commits = collections['totalCommitContributions']
+    rest_headers = {'Authorization': f'token {TOKEN}', 'Accept': 'application/vnd.github.cloak-preview+json'} if TOKEN else {}
+    rest_url = f"https://api.github.com/search/commits?q=author:{USERNAME}"
+    rest_response = requests.get(rest_url, headers=rest_headers)
+    all_time_commits = 0
+    if rest_response.status_code == 200:
+        all_time_commits = rest_response.json().get('total_count', 0)
+        
+    total_commits_1yr = collections['totalCommitContributions']
+    total_commits = max(all_time_commits, total_commits_1yr)
     total_issues = collections['totalIssueContributions']
     total_prs = collections['totalPullRequestContributions']
     merged_prs = data['data']['search']['issueCount']
