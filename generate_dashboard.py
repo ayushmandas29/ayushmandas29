@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import re
 from datetime import datetime, timedelta
 
 TOKEN = os.getenv('GITHUB_TOKEN')
@@ -64,17 +65,13 @@ def compute_metrics(data):
 
     collections = user_node['contributionsCollection']
     
-    # 1. Basics
     total_commits = collections['totalCommitContributions']
     total_issues = collections['totalIssueContributions']
     total_prs = collections['totalPullRequestContributions']
     merged_prs = data['data']['search']['issueCount']
     repos_contributed_to = collections['totalRepositoriesWithContributedCommits']
-    
-    # Stars
     total_stars = sum([repo['stargazerCount'] for repo in user_node['repositories']['nodes']])
     
-    # Calendar
     calendar = collections['contributionCalendar']
     current_streak = 0
     longest_streak = 0
@@ -88,7 +85,6 @@ def compute_metrics(data):
     today = datetime.utcnow().date()
     streak_temp = 0
     
-    # Longest streak calculation
     for day in days:
         if day['contributionCount'] > 0:
             streak_temp += 1
@@ -97,12 +93,10 @@ def compute_metrics(data):
         else:
             streak_temp = 0
             
-    # Current streak calculation (iterate backwards)
     for day in reversed(days):
         if day['contributionCount'] > 0:
             current_streak += 1
         elif day['date'] != today.strftime("%Y-%m-%d"):
-            # break if yesterday had 0 contributions
             if current_streak > 0:
                  break
 
@@ -125,9 +119,41 @@ def compute_metrics(data):
         "last_updated": datetime.utcnow().isoformat()
     }
 
+def update_readme(metrics):
+    try:
+        with open("README.md", "r", encoding="utf-8") as f:
+            readme = f.read()
+            
+        m = metrics['metrics']
+        table_html = f"""<!-- START_CUSTOM_METRICS -->
+<div align="center">
+  <h3>⚡ Real-Time Native Analytics Engine</h3>
+  <table width="100%">
+    <tr align="center">
+      <td><b>Total Commits:</b><br>{m['total_commits']}</td>
+      <td><b>Merged PRs:</b><br>{m['merged_prs']} / {m['total_prs']}</td>
+      <td><b>Stargazers:</b><br>{m['total_stars']}</td>
+    </tr>
+    <tr align="center">
+      <td><b>Longest Streak:</b><br>{m['longest_streak']} days</td>
+      <td><b>Current Streak:</b><br>{m['current_streak']} days</td>
+      <td><b>Consistency Score:</b><br>{m['consistency_score']}%</td>
+    </tr>
+  </table>
+  <p><i>Automatically synced via GitHub Actions</i></p>
+</div>
+<!-- END_CUSTOM_METRICS -->"""
+
+        readme = re.sub(r'<!-- START_CUSTOM_METRICS -->.*<!-- END_CUSTOM_METRICS -->', table_html, readme, flags=re.DOTALL)
+        
+        with open("README.md", "w", encoding="utf-8") as f:
+            f.write(readme)
+        print("Updated README.md with live metrics.")
+    except Exception as e:
+        print(f"Failed to update README.md: {e}")
+
 if __name__ == "__main__":
     if not TOKEN:
-        # Fallback dummy data for local testing without token
          metrics = {
             "username": USERNAME,
             "metrics": {
@@ -147,6 +173,7 @@ if __name__ == "__main__":
          os.makedirs("dashboard", exist_ok=True)
          with open("dashboard/stats.json", "w") as f:
              json.dump(metrics, f, indent=4)
+         update_readme(metrics)
          print("Created fallback stats.json.")
     else:
         data = get_graphql_data()
@@ -156,6 +183,7 @@ if __name__ == "__main__":
                 os.makedirs("dashboard", exist_ok=True)
                 with open("dashboard/stats.json", "w") as f:
                     json.dump(metrics, f, indent=4)
+                update_readme(metrics)
                 print("Stats updated successfully.")
             else:
                 print("Failed to compute metrics.")
