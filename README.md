@@ -4,7 +4,7 @@
 
 # ⚡ Ayushman Das
 
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=24&pause=1000&color=00F0FF&background=0A0A0A00&center=true&vCenter=true&width=600&lines=Machine+Learning+Architect;Cloud+Native+Developer;AI+%2F+Deep+Learning+Specialist;Building+the+Future." alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=24&pause=1000&color=00F0FF&background=0A0A0A00&center=true&vCenter=true&width=600&lines=Machine+Learning+Architect;Cloud+Native+Developer;AI+%2F+Deep+Learning+Enthusiast ;Building+the+Future." alt="Typing SVG" /></a>
 
 *“Decrypting complex problems, one line of code at a time.”* 💻✨
 
