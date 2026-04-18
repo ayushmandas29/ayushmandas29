@@ -4,7 +4,7 @@
 
 # ⚡ Ayushman Das
 
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=24&pause=1000&color=00F0FF&background=0A0A0A00&center=true&vCenter=true&width=600&lines=Machine+Learning+Architect;Cloud+Native+Developer;AI+%2F+Deep+Learning+Enthusiast ;Building+the+Future." alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=24&pause=1000&color=00F0FF&background=0A0A0A00&center=true&vCenter=true&width=600&lines=Machine+Learning+Architect;Cloud+Native+Developer;AI+%2F+Deep+Learning+Enthusiast;Building+the+Future." alt="Typing SVG" /></a>
 
 *“Decrypting complex problems, one line of code at a time.”* 💻✨
 
@@ -37,14 +37,16 @@
 
 <details open>
   <summary><b>🛡️ High-Stakes Fraud Detection Neural Network</b></summary>
-  <br>
-  > Optimized deep neural network architecture via hyperparameter tuning to boost accuracy by <b>28%</b> and reduce convergence time by <b>30%</b>. Scaled the model as a Dockerized microservice on GCP via CI/CD, preventing potential annual fraud losses of <b>$2.5M</b>.
+  
+  > Optimized deep neural network architecture via hyperparameter tuning to boost accuracy by **28%** and reduce convergence time by **30%**. Scaled the model as a Dockerized microservice on GCP via CI/CD, preventing potential annual fraud losses of **$2.5M**.
+
 </details>
 
 <details open>
   <summary><b>📄 Intelligent ATS Resume Optimizer</b></summary>
-  <br>
+  
   > A web-based ATS optimization engine allowing direct file uploads (PDF, DOCX, PPTX) to extract skills, identify job description gaps, and provide one-click ML-driven improvements.
+
 </details>
 
 <br/>
