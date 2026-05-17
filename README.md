@@ -81,7 +81,7 @@
     <tr align="center">
       <td><b>Longest Streak:</b><br>238 days</td>
       <td><b>Current Streak:</b><br>1 days</td>
-      <td><b>Consistency Score:</b><br>87.4%</td>
+      <td><b>Consistency Score:</b><br>86.3%</td>
     </tr>
   </table>
   <p><i>Automatically synced via GitHub Actions</i></p>
