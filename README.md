@@ -79,9 +79,9 @@
       <td><b>Stargazers:</b><br>18</td>
     </tr>
     <tr align="center">
-      <td><b>Longest Streak:</b><br>236 days</td>
+      <td><b>Longest Streak:</b><br>229 days</td>
       <td><b>Current Streak:</b><br>1 days</td>
-      <td><b>Consistency Score:</b><br>81.64%</td>
+      <td><b>Consistency Score:</b><br>79.73%</td>
     </tr>
   </table>
   <p><i>Automatically synced via GitHub Actions</i></p>
