@@ -49,6 +49,15 @@
 ### 🚀 Classified Projects Archive
 
 <details open>
+  <summary><b>🤖 Enterprise RAG Research & Production Lab</b></summary>
+  
+  > An enterprise-grade research laboratory demonstrating competence across **Research → Engineering → MLOps → Cloud → Security → Evaluation → System Design → Production**. Features multi-tenant RLS vector search, hybrid BM25 + Cross-Encoder reranking, multi-provider LLM gateway, prompt injection guardrails, Prometheus telemetry, and automated CI/CD evaluation gates.
+  > 
+  > 🔗 **Repository**: [ayushmandas29/RAG-Research-Lab](https://github.com/ayushmandas29/RAG-Research-Lab)
+
+</details>
+
+<details open>
   <summary><b>🛡️ High-Stakes Fraud Detection Neural Network</b></summary>
   
   > Optimized deep neural network architecture via hyperparameter tuning to boost accuracy by **28%** and reduce convergence time by **30%**. Scaled the model as a Dockerized microservice on GCP via CI/CD, preventing potential annual fraud losses of **$2.5M**.
