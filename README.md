@@ -16,7 +16,7 @@
 
 ### 🏆 GitHub Trophies
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=ayushmandas29&theme=algolia&no-frame=true&no-bg=true&column=7&margin-w=10" />
+  <img src="https://profile-trophy.vercel.app/?username=ayushmandas29&theme=algolia&no-frame=true&no-bg=true&column=7&margin-w=10" />
 </p>
 
 ---
@@ -36,10 +36,10 @@
 ### 📊 Telemetry & Operations Board
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ayushmandas29&theme=tokyonight&hide_border=true&include_all_commits=true&show_icons=true&count_private=true&cache_seconds=86400" height="195" />
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api?username=ayushmandas29&theme=tokyonight&hide_border=true&include_all_commits=true&show_icons=true&count_private=true&cache_seconds=86400" height="195" />
   <img src="https://streak-stats.demolab.com?user=ayushmandas29&theme=tokyonight&hide_border=true" height="195" />
   <br/><br/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ayushmandas29&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&cache_seconds=86400" />
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=ayushmandas29&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&cache_seconds=86400" />
   <br/><br/>
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=ayushmandas29&bg_color=1a1b26&color=00e1ff&line=0048ff&point=ffffff&area=true&hide_border=true&hide_title=true" width="100%" />
 </div>
