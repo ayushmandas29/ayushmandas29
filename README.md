@@ -71,20 +71,22 @@
 
 <!-- START_CUSTOM_METRICS -->
 <div align="center">
-  <h3>⚡ Real-Time Native Analytics Engine</h3>
+  <h3>⚡ GitHub Analytics</h3>
   <table width="100%">
     <tr align="center">
-      <td><b>Total Commits:</b><br>1566</td>
-      <td><b>Merged PRs:</b><br>0 / 0</td>
+      <td><b>Total Commits:</b><br>1083</td>
+      <td><b>Pull Requests:</b><br>0</td>
+      <td><b>Reviews:</b><br>0</td>
       <td><b>Stargazers:</b><br>18</td>
     </tr>
     <tr align="center">
       <td><b>Longest Streak:</b><br>180 days</td>
       <td><b>Current Streak:</b><br>1 days</td>
-      <td><b>Consistency Score:</b><br>66.3%</td>
+      <td><b>Active Days:</b><br>243</td>
+      <td><b>Consistency:</b><br>66.58%</td>
     </tr>
   </table>
-  <p><i>Automatically synced via GitHub Actions</i></p>
+  <p><i>Automatically synchronized from GitHub contribution data.</i></p>
 </div>
 <!-- END_CUSTOM_METRICS -->
 
