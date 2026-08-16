@@ -1,199 +1,187 @@
-import os
 import json
-import requests
+import os
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
-TOKEN = os.getenv('GITHUB_TOKEN')
-USERNAME = 'ayushmandas29'
+import requests
+
+TOKEN = os.getenv("GITHUB_TOKEN")
+USERNAME = "ayushmandas29"
+GRAPHQL_URL = "https://api.github.com/graphql"
+IST = timezone(timedelta(hours=5, minutes=30))
+
 
 def get_graphql_data():
-    query = """
-    query {
-      user(login: "%s") {
+    query = f"""
+    query {{
+      user(login: "{USERNAME}") {{
         name
         login
-        contributionsCollection {
+        contributionsCollection {{
           totalCommitContributions
           totalIssueContributions
           totalPullRequestContributions
           totalPullRequestReviewContributions
           totalRepositoriesWithContributedCommits
-          contributionCalendar {
+          contributionCalendar {{
             totalContributions
-            weeks {
-              contributionDays {
+            weeks {{
+              contributionDays {{
                 contributionCount
                 date
-              }
-            }
-          }
-        }
-        repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
-          nodes {
+              }}
+            }}
+          }}
+        }}
+        repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {{
+          nodes {{
             stargazerCount
-          }
-        }
-      }
-      search(query: "author:%s type:pr is:merged", type: ISSUE, first: 1) {
-        issueCount
-      }
-    }
-    """ % (USERNAME, USERNAME)
+          }}
+        }}
+      }}
+    }}
+    """
 
-    headers = {'Authorization': f'Bearer {TOKEN}'} if TOKEN else {}
     if not TOKEN:
-        print("WARNING: No token provided. Skipping graphql request.")
-        return None
-        
-    response = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
-    if response.status_code == 200:
-        return response.json()
+        raise RuntimeError("GITHUB_TOKEN is not available")
+
+    response = requests.post(
+        GRAPHQL_URL,
+        json={"query": query},
+        headers={
+            "Authorization": f"Bearer {TOKEN}",
+            "Accept": "application/vnd.github+json",
+        },
+        timeout=30,
+    )
+    response.raise_for_status()
+    payload = response.json()
+
+    if payload.get("errors"):
+        raise RuntimeError(payload["errors"])
+
+    return payload["data"]["user"]
+
+
+def calculate_streak(calendar):
+    days = [
+        day
+        for week in calendar["weeks"]
+        for day in week["contributionDays"]
+    ]
+    days.sort(key=lambda day: day["date"])
+
+    counts = {day["date"]: day["contributionCount"] for day in days}
+    today = datetime.now(IST).date()
+
+    # GitHub's current streak can continue through today when today has
+    # no contribution yet; otherwise start from the most recent day.
+    if counts.get(today.isoformat(), 0) > 0:
+        cursor = today
     else:
-        print(f"Failed to fetch data: {response.text}")
-        return None
+        cursor = today - timedelta(days=1)
 
-def compute_metrics(data):
-    if 'errors' in data:
-        print("GraphQL Error:", data['errors'])
-        return None
-
-    user_node = data['data']['user']
-    if not user_node:
-        print("User not found.")
-        return None
-
-    collections = user_node['contributionsCollection']
-    
-    rest_headers = {'Authorization': f'token {TOKEN}', 'Accept': 'application/vnd.github.cloak-preview+json'} if TOKEN else {}
-    rest_url = f"https://api.github.com/search/commits?q=author:{USERNAME}"
-    rest_response = requests.get(rest_url, headers=rest_headers)
-    all_time_commits = 0
-    if rest_response.status_code == 200:
-        all_time_commits = rest_response.json().get('total_count', 0)
-        
-    total_commits_1yr = collections['totalCommitContributions']
-    total_commits = max(all_time_commits, total_commits_1yr)
-    total_issues = collections['totalIssueContributions']
-    total_prs = collections['totalPullRequestContributions']
-    merged_prs = data['data']['search']['issueCount']
-    repos_contributed_to = collections['totalRepositoriesWithContributedCommits']
-    total_stars = sum([repo['stargazerCount'] for repo in user_node['repositories']['nodes']])
-    
-    calendar = collections['contributionCalendar']
     current_streak = 0
-    longest_streak = 0
-    active_days = 0
-    
-    days = []
-    for week in calendar['weeks']:
-        for day in week['contributionDays']:
-            days.append(day)
-            
-    today = datetime.utcnow().date()
-    streak_temp = 0
-    
-    for day in days:
-        if day['contributionCount'] > 0:
-            streak_temp += 1
-            longest_streak = max(longest_streak, streak_temp)
-            active_days += 1
-        else:
-            streak_temp = 0
-            
-    for day in reversed(days):
-        if day['contributionCount'] > 0:
-            current_streak += 1
-        elif day['date'] != today.strftime("%Y-%m-%d"):
-            if current_streak > 0:
-                 break
+    while counts.get(cursor.isoformat(), 0) > 0:
+        current_streak += 1
+        cursor -= timedelta(days=1)
 
-    consistency_score = round((active_days / 365.0) * 100, 2)
-    
+    longest_streak = 0
+    running = 0
+    active_days = 0
+
+    for day in days:
+        if day["contributionCount"] > 0:
+            running += 1
+            active_days += 1
+            longest_streak = max(longest_streak, running)
+        else:
+            running = 0
+
+    return current_streak, longest_streak, active_days
+
+
+def compute_metrics(user):
+    collections = user["contributionsCollection"]
+    calendar = collections["contributionCalendar"]
+
+    current_streak, longest_streak, active_days = calculate_streak(calendar)
+
+    total_stars = sum(
+        repo["stargazerCount"]
+        for repo in user["repositories"]["nodes"]
+    )
+
     return {
         "username": USERNAME,
         "metrics": {
-            "total_commits": total_commits,
-            "total_prs": total_prs,
-            "merged_prs": merged_prs,
-            "total_issues": total_issues,
+            "total_commits": collections["totalCommitContributions"],
+            "total_prs": collections["totalPullRequestContributions"],
+            "total_reviews": collections["totalPullRequestReviewContributions"],
+            "total_issues": collections["totalIssueContributions"],
             "total_stars": total_stars,
-            "repositories_contributed_to": repos_contributed_to,
+            "repositories_contributed_to": collections[
+                "totalRepositoriesWithContributedCommits"
+            ],
             "current_streak": current_streak,
             "longest_streak": longest_streak,
-            "consistency_score": consistency_score,
-            "active_days": active_days
+            "consistency_score": round((active_days / 365.0) * 100, 2),
+            "active_days": active_days,
         },
-        "last_updated": datetime.utcnow().isoformat()
+        "last_updated": datetime.now(timezone.utc).isoformat(),
     }
 
+
 def update_readme(metrics):
-    try:
-        with open("README.md", "r", encoding="utf-8") as f:
-            readme = f.read()
-            
-        m = metrics['metrics']
-        table_html = f"""<!-- START_CUSTOM_METRICS -->
+    with open("README.md", "r", encoding="utf-8") as file:
+        readme = file.read()
+
+    m = metrics["metrics"]
+
+    table_html = f"""<!-- START_CUSTOM_METRICS -->
 <div align="center">
-  <h3>⚡ Real-Time Native Analytics Engine</h3>
+  <h3>⚡ GitHub Analytics</h3>
   <table width="100%">
     <tr align="center">
       <td><b>Total Commits:</b><br>{m['total_commits']}</td>
-      <td><b>Merged PRs:</b><br>{m['merged_prs']} / {m['total_prs']}</td>
+      <td><b>Pull Requests:</b><br>{m['total_prs']}</td>
+      <td><b>Reviews:</b><br>{m['total_reviews']}</td>
       <td><b>Stargazers:</b><br>{m['total_stars']}</td>
     </tr>
     <tr align="center">
       <td><b>Longest Streak:</b><br>{m['longest_streak']} days</td>
       <td><b>Current Streak:</b><br>{m['current_streak']} days</td>
-      <td><b>Consistency Score:</b><br>{m['consistency_score']}%</td>
+      <td><b>Active Days:</b><br>{m['active_days']}</td>
+      <td><b>Consistency:</b><br>{m['consistency_score']}%</td>
     </tr>
   </table>
-  <p><i>Automatically synced via GitHub Actions</i></p>
+  <p><i>Automatically synchronized from GitHub contribution data.</i></p>
 </div>
 <!-- END_CUSTOM_METRICS -->"""
 
-        readme = re.sub(r'<!-- START_CUSTOM_METRICS -->.*<!-- END_CUSTOM_METRICS -->', table_html, readme, flags=re.DOTALL)
-        
-        with open("README.md", "w", encoding="utf-8") as f:
-            f.write(readme)
-        print("Updated README.md with live metrics.")
-    except Exception as e:
-        print(f"Failed to update README.md: {e}")
+    pattern = r"<!-- START_CUSTOM_METRICS -->.*?<!-- END_CUSTOM_METRICS -->"
+    updated = re.sub(pattern, table_html, readme, flags=re.DOTALL)
+
+    with open("README.md", "w", encoding="utf-8") as file:
+        file.write(updated)
+
+
+def main():
+    user = get_graphql_data()
+    if not user:
+        raise RuntimeError(f"GitHub user '{USERNAME}' was not found")
+
+    metrics = compute_metrics(user)
+
+    os.makedirs("dashboard", exist_ok=True)
+    with open("dashboard/stats.json", "w", encoding="utf-8") as file:
+        json.dump(metrics, file, indent=4)
+
+    update_readme(metrics)
+
+    print(f"Current streak: {metrics['metrics']['current_streak']} days")
+    print(f"Longest streak: {metrics['metrics']['longest_streak']} days")
+
 
 if __name__ == "__main__":
-    if not TOKEN:
-         metrics = {
-            "username": USERNAME,
-            "metrics": {
-                "total_commits": 0,
-                "total_prs": 0,
-                "merged_prs": 0,
-                "total_issues": 0,
-                "total_stars": 0,
-                "repositories_contributed_to": 0,
-                "current_streak": 0,
-                "longest_streak": 0,
-                "consistency_score": 0.0,
-                "active_days": 0
-            },
-            "last_updated": datetime.utcnow().isoformat()
-        }
-         os.makedirs("dashboard", exist_ok=True)
-         with open("dashboard/stats.json", "w") as f:
-             json.dump(metrics, f, indent=4)
-         update_readme(metrics)
-         print("Created fallback stats.json.")
-    else:
-        data = get_graphql_data()
-        if data:
-            metrics = compute_metrics(data)
-            if metrics:
-                os.makedirs("dashboard", exist_ok=True)
-                with open("dashboard/stats.json", "w") as f:
-                    json.dump(metrics, f, indent=4)
-                update_readme(metrics)
-                print("Stats updated successfully.")
-            else:
-                print("Failed to compute metrics.")
-        else:
-            print("Failed to get data.")
+    main()
