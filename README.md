@@ -6,9 +6,20 @@
 
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=24&pause=1000&color=00F0FF&background=0A0A0A00&center=true&vCenter=true&width=600&lines=Machine+Learning+Architect;Cloud+Native+Developer;AI+%2F+Deep+Learning+Enthusiast;Building+the+Future." alt="Typing SVG" /></a>
 
-*“Decrypting complex problems, one line of code at a time.”* 💻✨
+*"Decrypting complex problems, one line of code at a time."* 💻✨
 
 <br/>
+
+![Profile Views](https://komarev.com/ghpvc/?username=ayushmandas29&style=for-the-badge&color=00e1ff&label=PROFILE+VIEWS)
+
+---
+
+### 🏆 GitHub Trophies
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=ayushmandas29&theme=algolia&no-frame=true&no-bg=true&column=7&margin-w=10" />
+</p>
+
+---
 
 ### 🔥 Technologies & Weapons of Choice
 <p align="center">
@@ -25,10 +36,10 @@
 ### 📊 Telemetry & Operations Board
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ayushmandas29&theme=tokyonight&hide_border=true&include_all_commits=true&show_icons=true" height="195" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=ayushmandas29&theme=tokyonight&hide_border=true" height="195" />
+  <img src="https://github-readme-stats.vercel.app/api?username=ayushmandas29&theme=tokyonight&hide_border=true&include_all_commits=true&show_icons=true&count_private=true&cache_seconds=86400" height="195" />
+  <img src="https://streak-stats.demolab.com?user=ayushmandas29&theme=tokyonight&hide_border=true" height="195" />
   <br/><br/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ayushmandas29&layout=compact&theme=tokyonight&hide_border=true" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ayushmandas29&layout=compact&theme=tokyonight&hide_border=true&langs_count=10&cache_seconds=86400" />
   <br/><br/>
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=ayushmandas29&bg_color=1a1b26&color=00e1ff&line=0048ff&point=ffffff&area=true&hide_border=true&hide_title=true" width="100%" />
 </div>
@@ -53,6 +64,20 @@
 
 <br/>
 
+---
+
+### 🐍 Contribution Snake
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ayushmandas29/ayushmandas29/output/github-snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ayushmandas29/ayushmandas29/output/github-snake.svg" />
+    <img alt="github-snake" src="https://raw.githubusercontent.com/ayushmandas29/ayushmandas29/output/github-snake-dark.svg" />
+  </picture>
+</div>
+
+---
+
 <div align="center">
   <!-- Glowing connection lines/dots -->
   <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
@@ -64,6 +89,9 @@
 </a>
 <a href="https://github.com/ayushmandas29">
   <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
+</a>
+<a href="https://linkedin.com/in/ayushmandas29">
+  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
 </a>
 </div>
 
