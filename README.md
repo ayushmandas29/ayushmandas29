@@ -114,7 +114,7 @@
       <td><b>Total Commits:</b><br>989</td>
       <td><b>Pull Requests:</b><br>0</td>
       <td><b>Reviews:</b><br>0</td>
-      <td><b>Stargazers:</b><br>19</td>
+      <td><b>Stargazers:</b><br>20</td>
     </tr>
     <tr align="center">
       <td><b>Longest Streak:</b><br>166 days</td>
