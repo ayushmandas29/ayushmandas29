@@ -118,7 +118,7 @@
     </tr>
     <tr align="center">
       <td><b>Longest Streak:</b><br>166 days</td>
-      <td><b>Current Streak:</b><br>1 days</td>
+      <td><b>Current Streak:</b><br>0 days</td>
       <td><b>Active Days:</b><br>230</td>
       <td><b>Consistency:</b><br>63.01%</td>
     </tr>
