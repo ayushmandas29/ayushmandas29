@@ -117,10 +117,10 @@
       <td><b>Stargazers:</b><br>20</td>
     </tr>
     <tr align="center">
-      <td><b>Longest Streak:</b><br>152 days</td>
+      <td><b>Longest Streak:</b><br>145 days</td>
       <td><b>Current Streak:</b><br>0 days</td>
-      <td><b>Active Days:</b><br>216</td>
-      <td><b>Consistency:</b><br>59.18%</td>
+      <td><b>Active Days:</b><br>209</td>
+      <td><b>Consistency:</b><br>57.26%</td>
     </tr>
   </table>
   <p><i>Automatically synchronized from GitHub contribution data.</i></p>
