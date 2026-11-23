@@ -1,16 +1,16 @@
 {
     "username": "ayushmandas29",
     "metrics": {
-        "total_commits": 655,
+        "total_commits": 605,
         "total_prs": 0,
         "total_reviews": 0,
         "total_issues": 0,
         "total_stars": 20,
-        "repositories_contributed_to": 11,
+        "repositories_contributed_to": 9,
         "current_streak": 0,
         "longest_streak": 82,
         "consistency_score": 40.27,
         "active_days": 147
     },
-    "last_updated": "2026-11-22T19:05:05.017542+00:00"
+    "last_updated": "2026-11-23T05:57:01.795569+00:00"
 }
